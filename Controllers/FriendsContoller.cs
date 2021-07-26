@@ -24,26 +24,33 @@ namespace TodoApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Friends>>> GetFriends()
         {
-            return await _context.Friends.ToListAsync();
+            return await _context.FriendItems.ToListAsync();
         }
 
-        //public async Task<ActionResult<Friends>> FriendsItem(long id)
-        //{
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Friends>> FriendsItem(long id)
+        {
 
-          //  var friendItem = await _context.FriendItems.FindAsync(id);
-           // return friendItem;
+            var friendItem = await _context.FriendItems.FindAsync(id);
 
-        //}
+            if (friendItem == null) {
+                return NotFound();
+            }
+
+            return friendItem;
+
+        }
 
         // POST: api/TodoItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Friends>> CreateNewFriend(Friends friend)
         {
-            _context.Friends.Add(friend);
+            _context.FriendItems.Add(friend);
+            
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("FriendsItem", new {id=friend.id}, friend);
+            return CreatedAtAction("FriendsItem", new {id = friend.Id}, friend);
         }
     }
 }

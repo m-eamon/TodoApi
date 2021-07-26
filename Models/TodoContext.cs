@@ -11,7 +11,7 @@ namespace TodoApi.Models
 
         public DbSet<TodoItem> TodoItems { get; set; }
 
-        public DbSet<Friends> Friends { get; set; }
+        public DbSet<Friends> FriendItems { get; set; }
 
     }
 }
